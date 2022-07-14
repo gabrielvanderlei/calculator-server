@@ -37,7 +37,7 @@ try {
                   clientLog(error);
                   client.close();
                 } else {
-                  clientLog('Data is sent !');
+                  clientLog('SENT');
                 }
             });
         } else {
