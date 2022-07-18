@@ -1,15 +1,22 @@
+const {
+    DEBUG,
+    PORT,
+    HOST
+} = require('../lib/configuration');
+
+let dgram = require('dgram');
+let client = dgram.createSocket('udp4');
+
+const readline = require('readline');
+
 try {
-    const {DEBUG, PORT, HOST} = require('./configuration');
-
-    let dgram = require('dgram');
-    let client = dgram.createSocket('udp4');
-
-    const readline = require('readline');
     const rl = readline.createInterface(process.stdin, process.stdout);
 
-    const clientLog = (message, options = { isDebugOnly: false }) => { 
-        if(!options.isDebugOnly || (options.isDebugOnly && DEBUG)){ 
-            console.log(`[CLIENT] ${message}`) 
+    const clientLog = (message, options = {
+        isDebugOnly: false
+    }) => {
+        if (!options.isDebugOnly || (options.isDebugOnly && DEBUG)) {
+            console.log(`[CLIENT] ${message}`)
         }
     };
 
@@ -27,17 +34,17 @@ try {
     clientLog(`> quit now`)
     clientLog(``)
 
-    
+
     rl.on('line', (message) => {
         let messageSplitted = message.split(' ');
-    
-        if(messageSplitted.length > 1){
-            client.send(message, PORT, HOST, function(error){
-                if(error){
-                  clientLog(error);
-                  client.close();
+
+        if (messageSplitted.length > 1) {
+            client.send(message, PORT, HOST, function (error) {
+                if (error) {
+                    clientLog(error);
+                    client.close();
                 } else {
-                  clientLog('SENT');
+                    clientLog('SENT');
                 }
             });
         } else {
@@ -45,10 +52,10 @@ try {
         }
     });
 
-    client.on("message", function(data){
+    client.on("message", function (data) {
         clientLog(data);
     })
 
-} catch(e) {
+} catch (e) {
     console.log("Error running the client, please verify if the server is online.")
 }

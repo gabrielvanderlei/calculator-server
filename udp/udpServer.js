@@ -1,18 +1,18 @@
 const {
     processOperation,
     isOperation
-} = require('./operations');
+} = require('../lib/operations');
+
+const {
+    DEBUG,
+    PORT,
+    HOST
+} = require('../lib/configuration');
+
+let dgram = require('dgram');
+let server = dgram.createSocket('udp4');
 
 try {
-    const {
-        DEBUG,
-        PORT,
-        HOST
-    } = require('./configuration');
-
-    let dgram = require('dgram');
-    let server = dgram.createSocket('udp4');
-
     const serverLog = (message, options = {
         isDebugOnly: false
     }) => {
