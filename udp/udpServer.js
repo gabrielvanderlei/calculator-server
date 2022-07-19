@@ -6,21 +6,14 @@ const {
 const {
     DEBUG,
     PORT,
-    HOST
+    HOST,
+    serverLog
 } = require('../lib/configuration');
 
 let dgram = require('dgram');
 let server = dgram.createSocket('udp4');
 
 try {
-    const serverLog = (message, options = {
-        isDebugOnly: false
-    }) => {
-        if (!options.isDebugOnly || (options.isDebugOnly && DEBUG)) {
-            console.log(`[SERVER] ${message}`)
-        }
-    };
-
     let sendToPort = (port, server, message) => {
         let bufferMessage = Buffer.from(message);
 

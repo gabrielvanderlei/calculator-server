@@ -1,7 +1,8 @@
 const {
     DEBUG,
     PORT,
-    HOST
+    HOST,
+    clientLog
 } = require('../lib/configuration');
 
 let dgram = require('dgram');
@@ -11,14 +12,6 @@ const readline = require('readline');
 
 try {
     const rl = readline.createInterface(process.stdin, process.stdout);
-
-    const clientLog = (message, options = {
-        isDebugOnly: false
-    }) => {
-        if (!options.isDebugOnly || (options.isDebugOnly && DEBUG)) {
-            console.log(`[CLIENT] ${message}`)
-        }
-    };
 
     clientLog(`Message format: [command] content.`)
     clientLog(``)
@@ -48,7 +41,7 @@ try {
                 }
             });
         } else {
-            clientLog(`Message format: [command] content. Example: message hi`)
+            clientLog(`Message format: [command] content. Example: + 1 1`)
         }
     });
 
