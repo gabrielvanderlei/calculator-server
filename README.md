@@ -1,12 +1,14 @@
-# Chat simples com Sockets
+# Servidor de Calculadora
+Servidor de calculadora simples com suporte a TCP e UDP.
+
 ## Exemplo de uso
-Instale as dependências
+### TCP
+Acesse a pasta contendo os scripts TCP
 
 ```bash
-npm i
+cd tcp
 ```
 
-### TCP
 Inicie o servidor
 
 ```bash
@@ -20,6 +22,12 @@ node tcpClient.js
 ```
 
 ### UDP
+Acesse a pasta contendo os scripts UDP
+
+```bash
+cd udp
+```
+
 Inicie o servidor
 
 ```bash

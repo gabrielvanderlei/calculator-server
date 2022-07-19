@@ -4,13 +4,11 @@ const {
 } = require('../lib/operations');
 
 const {
-    v4: uuidv4
-} = require('uuid');
-
-const {
     DEBUG,
     PORT,
-    HOST
+    HOST,
+    getRandomId,
+    serverLog
 } = require('../lib/configuration');
 
 const netLib = require('net');
@@ -18,14 +16,6 @@ const server = new netLib.Server();
 
 try {
     let allSockets = [];
-
-    const serverLog = (message, options = {
-        isDebugOnly: false
-    }) => {
-        if (!options.isDebugOnly || (options.isDebugOnly && DEBUG)) {
-            console.log(`[SERVER] ${message}`)
-        }
-    };
 
     let processMessage = ({
         command,
@@ -57,7 +47,7 @@ try {
     });
 
     server.on('connection', function (socket) {
-        let id = uuidv4();
+        let id = getRandomId();
         serverLog(`New client!`, {
             isDebugOnly: true
         });

@@ -1,21 +1,14 @@
 const {
     DEBUG,
     PORT,
-    HOST
+    HOST,
+    clientLog
 } = require('../lib/configuration');
 
 const netLib = require('net');
 const client = new netLib.Socket();
 
 try {
-    const clientLog = (message, options = {
-        isDebugOnly: false
-    }) => {
-        if (!options.isDebugOnly || (options.isDebugOnly && DEBUG)) {
-            console.log(`[CLIENT] ${message}`)
-        }
-    };
-
     const readline = require('readline');
     const rl = readline.createInterface(process.stdin, process.stdout);
 
@@ -60,7 +53,7 @@ try {
 
                 processMessage(command, message);
             } else {
-                clientLog(`Message format: [command] content. Example: message hi`)
+                clientLog(`Message format: [command] content. Example: + 1 1`)
             }
         });
     }
